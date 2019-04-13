@@ -22,10 +22,12 @@
         <div class="wrapper">
                 <form class="form-inline">
                         <div class="form-group mx-sm-3 mb-2">
-                          <label for="inputPassword2" class="sr-only">Search</label>
-                          <input type="password" class="form-control" id="inputPassword2" placeholder="Search">
+                          <label for="food-type">Category</label>
+                          <input type="text" class="form-control" id="food-type" placeholder="Category">
+                          <label for="food-location">Location</label>
+                          <input type="text" class="form-control" id="food-location" placeholder="Location">
                         </div>
-                        <button type="submit" class="btn btn-primary mb-2">Search Now!</button>
+                        <button type="submit" class="btn btn-primary mb-2" id="food-search-btn">Search Now!</button>
                       </form>
         </div>
     </div>
@@ -46,7 +48,13 @@
         <div class="col-md-6"><button id="random-btn">Random Chance!</button></div>
         </div>
     </div>
-    <div></div>
+
+    <div id="search-results">
+        <br>
+        <h2 class="text-center">Here are some ideas!</h2>
+        <div class="text-center" id="search-results-div"></div>
+        <br>
+    </div>
 
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
