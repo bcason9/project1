@@ -1,4 +1,4 @@
-var foodType;
+var foodType = [];
 var foodLocation;
 
 function renderPage() {
@@ -7,6 +7,8 @@ function renderPage() {
     $("#quiz-body").hide();
     $("#random-btn-body").hide();
     $("#search-results").hide();
+    $("#quiz-body-two").hide();
+    $("#location").hide();
 }
 
 
@@ -16,139 +18,54 @@ renderPage();
 $("#search-button").on("click", function() {
     $("#start-buttons").hide();
     $("#search-div").show();
-});
-
-$("#quiz-random").on("click", function() {
-    $("#start-buttons").hide();
-    $("#quiz-rando-buttons").show();
+    $(".container").attr("style", "background-color: azure; border: 1px solid black;");
 });
 
 $("#quiz-button").on("click", function() {
-    $("#quiz-rando-buttons").hide();
+    $("#start-buttons").hide();
     $("#quiz-body").show();
+    $(".container").attr("style", "background-color: azure; border: 1px solid black;");
 });
 
-$("#random-button-go").on("click", function() {
-    $("#quiz-rando-buttons").hide();
-    $("#random-btn-body").show();
-});
 
-function mapAPI(userLat, userLon){
-    　　　　　　　'use strict';
-    　　　　　　　　var map;
-        var service;
-        var infowindow;
-        var pyrmont = new google.maps.LatLng( userLat, userLon);
-        // -84.37362670898438,33.81321311652279
-        createMap(pyrmont)
- 
- 
-         
-         //document.getElementById('getcurrentlocation').onclick = function() {
-          //geoLocationInit();
-        //}
- 
-        function geoLocationInit() {
-          if (navigator.geolocation) {
-              navigator.geolocation.getCurrentPosition(success, fail);
- 
-            } else {
-              createMap(pyrmont);
-          }
-        }
- 
-       // success
-       function success(position) {
-         var currentLat = position.coords.latitude;
-         var currentLng = position.coords.longitude;
- 
-         var pyrmont = new google.maps.LatLng(currentLat,currentLng);
- 
-         createMap(pyrmont)
- 
-         CurrentPositionMarker(pyrmont);
-       }
- 
-        // fail
-        function fail(pyrmont) {
-          createMap(pyrmont);
-        }
- 
-        function createMap(pyrmont) {
- 
-          map = new google.maps.Map(document.getElementById('map'), {
-            center: pyrmont,
-            zoom: 15
-          });
-          nearbysearch(pyrmont)
-        }
- 
-        function createMarker(latlng, icn, place)
-        {
-          var marker = new google.maps.Marker({
-            position: latlng,
-            map: map
-          });
- 
-          var placename = place.name;
-    　　　　　　　　　　// 吹き出しにカフェの名前を埋め込む          
-          var contentString = `<div class="sample"><p id="place_name">${placename}</p></div>`;
- 
-         // 吹き出し
-          var infoWindow = new google.maps.InfoWindow({ // 吹き出しの追加
-              content:  contentString// 吹き出しに表示する内容
-            });
- 
- 
-            marker.addListener('click', function() { // マーカーをクリックしたとき
-                infoWindow.open(map, marker); // 吹き出しの表示
-            });
- 
-          }
- 
-        // 現在地のアイコンを表示
-        function CurrentPositionMarker(pyrmont) {
-            var image = 'http://i.stack.imgur.com/orZ4x.png'
- 
-            var marker = new google.maps.Marker({
-                    position: pyrmont,
-                    map: map,
-                    icon: image
-                });
-            marker.setMap(map);
-        }
- 
-        
-        function nearbysearch(pyrmont) {
-            var request = {
-              location: pyrmont,
-              radius: '1000',
-              //type: [food]
-            };
- 
-            service = new google.maps.places.PlacesService(map);
-            service.nearbySearch(request, callback);
- 
-            function callback(results, status) {
- 
-              console.log(results);
- 
-             if (status == google.maps.places.PlacesServiceStatus.OK) {
-        　　　　　　　　//取得したカフェ情報をそれぞれcreateMarkerに入れて、マーカーを作成
-                for (var i = 0; i < 2; i++) {
-                  var place = results[i];
-                  //console.log(place)
-                  var latlng = place.geometry.location;
-                  var icn = place.icon;
- 
-                  createMarker(latlng, icn, place);
-                }
-              }
-            }
-        }
-    };
 
-function yelpAjax(foodType, foodLocation) {
+//To use this, call initMap() and pass in latitude, longitude and
+//business name. Example: initMap(lat, lng, name)
+var map;
+var service;
+var infowindow;
+function initMap(userLat, userLon, userBusiness) {
+  var location = new google.maps.LatLng(userLat, userLon);
+  infowindow = new google.maps.InfoWindow();
+  map = new google.maps.Map(
+      document.getElementById('map'), {center: location, zoom: 15});
+  var request = {
+    query: userBusiness,
+    fields: ['name', 'geometry'],
+  };
+  console.log(userBusiness);
+  service = new google.maps.places.PlacesService(map);
+  service.findPlaceFromQuery(request, function(results, status) {
+    if (status === google.maps.places.PlacesServiceStatus.OK) {
+      for (var i = 0; i < results.length; i++) {
+        createMarker(results[i]);
+      }
+      map.setCenter(results[0].geometry.location);
+    }
+  });
+}
+function createMarker(place) {
+  var marker = new google.maps.Marker({
+    map: map,
+    position: place.geometry.location
+  });
+  google.maps.event.addListener(marker, 'click', function() {
+    infowindow.setContent(place.name);
+    infowindow.open(map, this);
+  });
+}
+
+function yelpAjax(foodType, foodLocation, userBusiness) {
 
 let myUrl = `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=by-${foodType}&location=${foodLocation}`;
 
@@ -211,7 +128,7 @@ $.ajax({
 
         $("#final-result").append("<h3 class='text-center'>" + userBusiness + "<br>" + userLoc + "<br>" + userRating + "/5 <br>" + userPhone + "<br>" + userPrice + "<br>" + resultImg);
 
-        mapAPI(userLat, userLon);
+        initMap(userLat, userLon, userBusiness);
     })
 
    }
@@ -226,15 +143,46 @@ $("#food-search-btn").on("click", function() {
     $("#search-div").hide();
     $("#search-results").show();
 
-        foodType = $("#food-type").val().trim();
+        foodType.push($("#food-type").val().trim());
         //foodType=["mexican","italian"]
         foodLocation = $("#food-location").val().trim();
 
+        //console.log(foodType);
+
     yelpAjax(foodType, foodLocation);
-
-
-
 
 });
 
+$(".btn-1").on("click", function() {
+  var userPref1 = $(this).attr("id");
+
+  console.log(userPref1);
+  $("#quiz-body-one").hide();
+  $("#quiz-body-two").show();
+
+$(".btn-2").on("click", function() {
+        var userPref2 = $(this).attr("id");
+        $("#quiz-body-two").hide();
+        //$("#search-results").show();
+        $("#location").show();
+
+        
+
+        foodType.push(userPref1, userPref2);
+
+        console.log(foodType)
+
+        $("#food-search-btn-2").on("click", function() {
+
+            var foodLocation = $("#food-location-2").val().trim();
+
+            $("#quiz-body").hide();
+            $("#search-results").show();
+
+            console.log(foodType, foodLocation);
+
+            yelpAjax(foodType, foodLocation);
+        })
+    })
+});
 
