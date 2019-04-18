@@ -9,12 +9,16 @@
     <title>Document</title>
 </head>
 <body>
-    <h1 class="text-center">Find some Food!</h1>
+    <br>
+    <h1 class="text-center">Find Some Food!</h1>
+    
+
+<div class="container">
     <br>
     <div id="start-buttons">
         <div class="row text-center">
-            <div class="col-md-6"><button id="search-button">I know what I want!</button></div>
-            <div class="col-md-6"><button id="quiz-random">I need help!</button></div>
+            <div class="col-md-6"><button class="btn btn-primary" id="search-button">I know what I want!</button></div>
+            <div class="col-md-6"><button class="btn btn-primary" id="quiz-button">Take the Quiz!</button></div>
         </div>
     </div>
 
@@ -32,33 +36,67 @@
         </div>
     </div>
 
-    <div id="quiz-rando-buttons">
-        <div class="row text-center">
-            <div class="col-md-6"><button id="quiz-button">Take the Quiz!</button></div>
-            <div class="col-md-6"><button id="random-button-go">Take a Chance!</button></div>
-        </div>
-    </div>
-
     <div id="quiz-body">
-        <h1 class="text-center">Fun quiz goes here!</h1>
-    </div>
-
-    <div id="random-btn-body">
-        <div class="row">
-        <div class="col-md-6"><button id="random-btn">Random Chance!</button></div>
-        </div>
+        <h2 class="text-center">What sounds good?</h2>
+        <div id="quiz-body-one">
+                <div class="row">
+                        <button class="col-md-3 btn-1" id="Vegetarian">Vegetarian</button>
+                        <button class="col-md-3 btn-1" id="Vegan">Vegan</button>
+                        <button class="col-md-3 btn-1" id="Gluten-Free">Gluten-Free</button>
+                        <button class="col-md-3 btn-1" id="Everything">Everything</button>
+                </div>
+            </div>
+        
+          
+        
+            <div id="quiz-body-two">
+                    <div class="row">
+                            <button class="col-md-3 btn-2" id="American">American</button>
+                            <button class="col-md-3 btn-2" id="Chinese">Chinese</button>
+                            <button class="col-md-3 btn-2" id="Italian">Italian</button>
+                            <button class="col-md-3 btn-2" id="Japanese">Japanese</button>
+                    </div>
+                    <div class="row">
+                            <button class="col-md-3 btn-2" id="Mediterranean">Mediterranean</button>
+                            <button class="col-md-3 btn-2" id="Mexican">Mexican</button>
+                            <button class="col-md-3 btn-2" id="Tex-Mex">Tex-Mex</button>
+                            <button class="col-md-3 btn-2" id="Thai">Thai</button>
+                    </div>
+                </div>
+        
+            <div id="location">
+                <div class="wrapper">
+                    <div class="row">
+                            <div class="col-md-8 form-group mb-2">
+                                    <label for="food-location">Location</label>
+                                    <input type="text" class="form-control" id="food-location-2" placeholder="Location">
+                                  </div>
+                                  <button type="submit" class="btn btn-primary mb-2" id="food-search-btn-2">Search Now!</button>
+                    </div>
+                </div>
+            </div>
     </div>
 
     <div id="search-results">
         <br>
         <h2 class="text-center">Here are some ideas!</h2>
+        <br>
         <div class="text-center" id="search-results-div"></div>
         <br>
     </div>
 
+    <div id="final-result"></div>
 
+    <div id="map"></div>
+    <br>
+</div>
+    <br>
+
+    
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA427Wz3aCN_GkX7H1wuQlntlBHTZFq6sk&libraries=places"
+        ></script>
     <script src="assets/js/app.js"></script>
 </body>
 </html>
