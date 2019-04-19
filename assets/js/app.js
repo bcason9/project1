@@ -18,13 +18,17 @@ renderPage();
 $("#search-button").on("click", function() {
     $("#start-buttons").hide();
     $("#search-div").show();
-    $(".container").attr("style", "background-color: azure; border: 1px solid black;");
+    //$(".container").attr("style", "background-color: azure; border: 1px solid black;");
+    $("body").attr("style", "background-image: url('assets/images/serchWindowImg.png');");
+    $("#secondary-txt").hide();
 });
 
 $("#quiz-button").on("click", function() {
     $("#start-buttons").hide();
     $("#quiz-body").show();
-    $(".container").attr("style", "background-color: azure; border: 1px solid black;");
+    //$(".container").attr("style", "background-color: azure; border: 1px solid black;");
+    $("body").attr("style", "background-image: url('assets/images/serchWindowImg.png');");
+    $("#secondary-txt").hide();
 });
 
 
@@ -34,16 +38,100 @@ $("#quiz-button").on("click", function() {
 var map;
 var service;
 var infowindow;
-function initMap(userLat, userLon, userBusiness) {
+function initMap(userLat, userLon, string) {
   var location = new google.maps.LatLng(userLat, userLon);
   infowindow = new google.maps.InfoWindow();
   map = new google.maps.Map(
-      document.getElementById('map'), {center: location, zoom: 15});
+      document.getElementById('map'), {center: location,
+         zoom: 15,
+         styles: [
+          {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
+          {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
+          {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
+          {
+            featureType: 'administrative.locality',
+            elementType: 'labels.text.fill',
+            stylers: [{color: '#d59563'}]
+          },
+          {
+            featureType: 'poi',
+            elementType: 'labels.text.fill',
+            stylers: [{color: '#d59563'}]
+          },
+          {
+            featureType: 'poi.park',
+            elementType: 'geometry',
+            stylers: [{color: '#263c3f'}]
+          },
+          {
+            featureType: 'poi.park',
+            elementType: 'labels.text.fill',
+            stylers: [{color: '#6b9a76'}]
+          },
+          {
+            featureType: 'road',
+            elementType: 'geometry',
+            stylers: [{color: '#38414e'}]
+          },
+          {
+            featureType: 'road',
+            elementType: 'geometry.stroke',
+            stylers: [{color: '#212a37'}]
+          },
+          {
+            featureType: 'road',
+            elementType: 'labels.text.fill',
+            stylers: [{color: '#9ca5b3'}]
+          },
+          {
+            featureType: 'road.highway',
+            elementType: 'geometry',
+            stylers: [{color: '#746855'}]
+          },
+          {
+            featureType: 'road.highway',
+            elementType: 'geometry.stroke',
+            stylers: [{color: '#1f2835'}]
+          },
+          {
+            featureType: 'road.highway',
+            elementType: 'labels.text.fill',
+            stylers: [{color: '#f3d19c'}]
+          },
+          {
+            featureType: 'transit',
+            elementType: 'geometry',
+            stylers: [{color: '#2f3948'}]
+          },
+          {
+            featureType: 'transit.station',
+            elementType: 'labels.text.fill',
+            stylers: [{color: '#d59563'}]
+          },
+          {
+            featureType: 'water',
+            elementType: 'geometry',
+            stylers: [{color: '#17263c'}]
+          },
+          {
+            featureType: 'water',
+            elementType: 'labels.text.fill',
+            stylers: [{color: '#515c6d'}]
+          },
+          {
+            featureType: 'water',
+            elementType: 'labels.text.stroke',
+            stylers: [{color: '#17263c'}]
+          }
+        ]
+      });
+
+      
   var request = {
-    query: userBusiness,
+    query: string,
     fields: ['name', 'geometry'],
   };
-  console.log(userBusiness);
+  //console.log(userBusiness);
   service = new google.maps.places.PlacesService(map);
   service.findPlaceFromQuery(request, function(results, status) {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
@@ -65,7 +153,7 @@ function createMarker(place) {
   });
 }
 
-function yelpAjax(foodType, foodLocation, userBusiness) {
+function yelpAjax(foodType, foodLocation) {
 
 let myUrl = `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=by-${foodType}&location=${foodLocation}`;
 
@@ -100,6 +188,7 @@ $.ajax({
     resultText.attr("data-phone", results.businesses[i].display_phone);
     resultText.attr("data-price", results.businesses[i].price);
     resultText.attr("data-img", `<img src='${results.businesses[i].image_url}' alt='Yelp Restaurant'></img>`);
+    resultText.attr("data-addy-1", results.businesses[i].location.address1);
 
     $("#search-results-div").append(resultText);
 
@@ -116,6 +205,9 @@ $.ajax({
         var userPhone = $(this).attr("data-phone")
         var resultImg = $(this).attr("data-img");
         var userPrice = $(this).attr("data-price");
+        var addy = $(this).attr("data-addy-1");
+
+        var string = userBusiness + " " + addy
 
         //console.log(resultImg);
         
@@ -128,7 +220,7 @@ $.ajax({
 
         $("#final-result").append("<h3 class='text-center'>" + userBusiness + "<br>" + userLoc + "<br>" + userRating + "/5 <br>" + userPhone + "<br>" + userPrice + "<br>" + resultImg);
 
-        initMap(userLat, userLon, userBusiness);
+        initMap(userLat, userLon, string);
     })
 
    }
@@ -153,12 +245,14 @@ $("#food-search-btn").on("click", function() {
 
 });
 
+
 $(".btn-1").on("click", function() {
   var userPref1 = $(this).attr("id");
 
   console.log(userPref1);
   $("#quiz-body-one").hide();
   $("#quiz-body-two").show();
+
 
 $(".btn-2").on("click", function() {
         var userPref2 = $(this).attr("id");
@@ -185,4 +279,5 @@ $(".btn-2").on("click", function() {
         })
     })
 });
+
 
