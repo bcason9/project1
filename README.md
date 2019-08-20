@@ -1,17 +1,23 @@
-# project1
+# Where Should I Eat?
 
-Ben Cason
-Kiha Moore
-Tracy Collins
-Johnny Ross
+Developers:
+Ben Cason - Javascript Lead
+Kiha Moore - Front End Lead
+Tracy Collins - Front End Support
+Johnny Ross - Javascript Support
 
-We are creating a website that will either give a user suggestions on where to eat or let them search for it with keywords or on a map.
+This app allows users to search for nearby restaurants using Yelp API and Google Maps API. The user may search directly using a keyword and location or they may use our 'quiz' of suggestions to help them find new results.
+
+## Technologies
+
+This app utilizes Bootstrap and jQuery alongside Yelp API and Google Maps API.
+
+
+
+
 
 ![Wire Frame of site](/assets/images/project1WireFrame.png)
 
-APIs to be used includes Google maps, Wikipedia, Yelp.
 
-Ben Cason - Javascript lead
-Kiha Moore - Front end lead
-Tracy Collins - front end support
-Johnny Ross - javascript support
+
+

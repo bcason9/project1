@@ -1,6 +1,7 @@
 #search-div {
     text-align: center;
     margin: auto;
+    margin-left: 265px;
 }
 
 #random-btn-body {
@@ -21,8 +22,8 @@ html, body {
   }
 
 body {
-  background-image: url("../images/page1.png");
-  background-size: cover;
+  background-image: url("../images/serchWindowImg.png"), url("../images/gray_sand.png");
+  background-repeat: no-repeat, repeat;
 }
 
 .sample {
@@ -39,24 +40,24 @@ img {
   width: 1050px;
 }
 
-.head {
-  letter-spacing: 0.2em;
-  color: white;
-}
-
 h1 {
-  width: 700px;
-  margin-left: 325px;
-  margin-right: 300px;
-  margin-top: 50px;
-  padding: 20px;
+  margin-top: 35px;
   letter-spacing: 0.2em;
   color: white;
 }
 
+h2 {
+  letter-spacing: 0.2em;
+  color: white;
+}
+
+h6 {
+  color: white;
+}
 
 #start-buttons {
   margin-top: 150px;
+  margin-left: 85px;
 }
 
 .btn-1 {
@@ -67,6 +68,10 @@ h1 {
 .btn-2 {
   height: 200px;
   width: 200px;
+}
+
+#food-search-btn {
+  margin-top: 7.5px;
 }
 
 #Vegetarian {
@@ -160,3 +165,74 @@ h1 {
   position: relative;
   top: 28px;
 }
+
+@media screen and (max-width: 550px) {
+
+  h1, h2 {
+    margin-left: 170px;
+    width: 700px;
+  }
+
+  #quiz-body-one {
+    margin-right: -5px;
+  }
+
+  #quiz-body-two {
+    margin-right: 5px;
+   
+  }
+
+  .btn-2 {
+    height: 175px;
+    width: 175px;
+  }
+
+  #start-buttons {
+    margin-left: 250px;
+  }
+
+  #food-search-btn {
+    margin-top: 0px;
+  }
+
+  #search-div {
+    margin-left: 275px;
+  }
+} 
+
+@media screen and (max-width: 375px) {
+  body {
+    width: 380px;
+  }
+
+  #quiz-body-one {
+    margin-right: -5px;
+  }
+
+  #quiz-body-two {
+    margin-right: 5px;
+   
+  }
+
+  .btn-2 {
+    height: 175px;
+    width: 175px;
+  }
+
+  #start-buttons {
+    margin-left: 250px;
+  }
+
+  #food-search-btn {
+    margin-top: 0px;
+  }
+
+  #search-div {
+    margin-left: 275px;
+  }
+
+  #food-location-2 {
+    width: 350px;
+    margin-left: 355px;
+  }
+} 
