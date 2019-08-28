@@ -14,23 +14,28 @@ View the deployed project [here](https://bcason9.github.io/project1/)!
 
 This app utilizes Bootstrap and jQuery alongside Yelp API and Google Maps API.
 
-# Visuals
+## Visuals
 
 Home Page:
+
 ![](assets/images/ScreenshotHome.jpg)
 
 Search Page for Direct Search:
+
 ![](assets/images/ScreenshotSearch.jpg)
 
 Quiz panels and Location for Quiz Option:
+
 ![](assets/images/SSQuiz1.jpg)
 ![](assets/images/SSQuiz2.jpg)
 ![](assets/images/SSLocation.jpg)
 
 Results from Yelp API:
-![](assets/images/SSResults.jpg)
+
+![](assets/images/SSResultPage.jpg)
 
 Final Result page with Yelp API info and Google Maps API:
+
 ![](assets/images/SSSelected1.jpg)
 ![](assets/images/SSSelected2.jpg)
 
