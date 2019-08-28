@@ -1,6 +1,7 @@
 # Where Should I Eat?
 
-Developers:
+## Developers:
+
 Ben Cason - Javascript Lead;
 
 Kiha Moore - Front End Lead;
